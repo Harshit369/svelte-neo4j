@@ -1,17 +1,16 @@
 import { driver, auth, Session, session } from "neo4j-driver";
+import config from "../config";
 
-import playerService from './players'
+import playerService from "./players";
 
 export const driverInstance = driver(
-  // @ts-ignore
-  process.env.DB_URL,
-  // @ts-ignore
-  auth.basic(process.env.DB_USER, process.env.DB_PASSWORD)
+  config.DB_URL,
+  auth.basic(config.DB_USER, config.DB_PASSWORD)
 );
 
 function DB(session: Session) {
   return {
-    player: playerService(session)
+    player: playerService(session),
   };
 }
 
