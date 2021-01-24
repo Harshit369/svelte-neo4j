@@ -1,6 +1,23 @@
 version: "3.7"
+
 services:
+  db:
+    env_file: .env
+    image: neo4j:4.2.1
+    network_mode: bridge
+    volumes:
+      - $HOME/neo4j/data:/var/lib/neo4j/data
+      - ./neo4j/import:/var/lib/neo4j/import
+      - ./neo4j/plugins:/var/lib/neo4j/plugins
+      - ./neo4j/logs:/var/lib/neo4j/logs
+    ports:
+      - "7474:7474"
+      - "7473:7473"
+      - "7687:7687"
+    environment:
+      - NEO4J_AUTH=${DB_USER}/${DB_PASSWORD}
   web:
+    env_file: .env
     build:
       context: .
       dockerfile: Dockerfile.dev
@@ -10,10 +27,9 @@ services:
       - "35729:35729"
     volumes:
       - .:/app
-  db:
-    build:
-      context: ./neo4j/
-    network_mode: bridge
-    ports:
-      - "7474:7474"
-      - "7687:7687"
+    environment:
+      - DB_URL
+      - DB_USER
+      - DB_PASSWORD
+    depends_on:
+      - db

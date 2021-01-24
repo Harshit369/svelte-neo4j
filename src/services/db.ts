@@ -14,4 +14,9 @@ function DB(session: Session) {
   };
 }
 
-export default DB(driverInstance.session({ defaultAccessMode: session.READ }));
+export default DB(
+  driverInstance.session({
+    defaultAccessMode: session.READ,
+    database: config.DB_NAME,
+  })
+);
