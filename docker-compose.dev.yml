@@ -2,7 +2,6 @@ version: "3.7"
 
 services:
   db:
-    env_file: .env
     image: neo4j:4.2.1
     network_mode: bridge
     volumes:
@@ -17,19 +16,16 @@ services:
     environment:
       - NEO4J_AUTH=${DB_USER}/${DB_PASSWORD}
   web:
-    env_file: .env
     build:
       context: .
       dockerfile: Dockerfile.dev
+    env_file:
+      - .env.dev
     network_mode: bridge
     ports:
       - "5000:5000"
       - "35729:35729"
     volumes:
       - .:/app
-    environment:
-      - DB_URL
-      - DB_USER
-      - DB_PASSWORD
     depends_on:
       - db
