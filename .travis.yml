@@ -8,3 +8,15 @@ before_install:
 
 script:
   - docker run svelte-neo4j-dev-image npm run validate
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-south-1"
+  env: "Neo4jSvelte-env"
+  app: "Neo4j-svelte"
+  bucket_name: "elasticbeanstalk-ap-south-1-802769621610"
+  bucket_path: "Neo4j-svelte"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
