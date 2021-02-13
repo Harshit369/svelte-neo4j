@@ -12,10 +12,10 @@ script:
 deploy:
   provider: elasticbeanstalk
   region: "ap-south-1"
-  env: "Neo4jSvelte-env"
-  app: "Neo4j-svelte"
+  env: "Svelteneo4j-env-1"
+  app: "svelte-neo4j"
   bucket_name: "elasticbeanstalk-ap-south-1-802769621610"
-  bucket_path: "Neo4j-svelte"
+  bucket_path: "svelte-neo4j"
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY

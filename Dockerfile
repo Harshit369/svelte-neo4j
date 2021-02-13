@@ -18,8 +18,6 @@ ENV DB_NAME $DB_NAME
 
 RUN npm run build
 
-CMD ["npm", "run", "start"]
-
-# FROM nginx
-# EXPOSE 80
-# COPY --from=0 /app/public/ /usr/share/nginx/html/
+FROM nginx
+EXPOSE 80
+COPY --from=0 /app/public/ /usr/share/nginx/html/
